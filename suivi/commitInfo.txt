@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Add this file on your .git/hooks/ and name it as 'pre-commit'
+
+# The path to the commit info file.
+COMMIT_FILE="suivi/commitInfo.txt"
+
+# Prompt the user if they want to include commit info.
+read -p "Include commit info in this commit? (y/n) " yn
+
+case $yn in
+    [Yy]* )
+        # Get the current date and time.
+        DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+        # Create the commit info file.
+        echo "Commit verified on $DATE" > "$COMMIT_FILE"
+
+        # Add the commit info file to the staging area.
+        git add "$COMMIT_FILE"
+        ;;
+    [Nn]* )
+        # Do nothing.
+        ;;
+esac
+
+exit 0
